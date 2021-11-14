@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Song;
 use Illuminate\Http\Request;
 
 class SongController extends Controller
@@ -43,9 +44,22 @@ class SongController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Song $song)
     {
-        //
+        return view('songs.show', compact('song'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function random()
+    {
+        $song = Song::inRandomOrder()->first();
+        // $song = Song::find($id);
+        return redirect()->route('songs.show', $song);
     }
 
     /**
