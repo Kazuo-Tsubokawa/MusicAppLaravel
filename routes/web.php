@@ -20,5 +20,3 @@ Route::get('/', function () {
 
 Route::resource('songs', SongController::class);
 
-Route::get('play', [SongController::class, 'random'])
-    ->name('random');

@@ -9,6 +9,6 @@
 <body>
     <p>{{ $song->title }}</p>
     <p>{{ $song->artist->name }}</p>
-    <p><a href="{{ route('random') }}">曲送り</a></p>
+    <p><a href="{{ route('songs.index') }}">曲送り</a></p>
 </body>
 </html>
