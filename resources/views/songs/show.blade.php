@@ -33,8 +33,8 @@
         <div>
             <a href="{{ route('songs.index') }}">曲送り</a>
         </div>
-        <a href="{{ route('songs.create') }}" class="position-fixed fs-1 bottom-0 end-0">
-            <i class="fas fa-plus-circle"></i>
+        <a href="{{ route('songs.create') }}" class="">
+            <i class="fas fa-plus-circle"></i>aaa
         </a>
     </div>
 @endsection

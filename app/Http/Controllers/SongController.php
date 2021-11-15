@@ -44,7 +44,7 @@ class SongController extends Controller
     {
         $song = new Song();
         $song->fill($request->all());
-
+        
         $song->artist_id = Auth::user()->artist->id;
 
         $file = $request->file;
@@ -63,9 +63,8 @@ class SongController extends Controller
             DB::rollBack();
             back()->withErrors(['error' => '保存に失敗しました']);
         }
-
-        return redirect()->route('songs.show', compact('song'))
-                ->with(['flash_message' => '登録が完了しました！']);
+        dd($song);
+        return redirect()->route('songs.show', compact('song'))->with(['flash_message' => '登録が完了しました！']);
     }
 
     /**
