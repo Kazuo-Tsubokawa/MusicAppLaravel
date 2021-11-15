@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Artist;
 use App\Models\Song;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use PhpParser\Node\Arg;
 
 class SongController extends Controller
 {
@@ -25,7 +31,7 @@ class SongController extends Controller
      */
     public function create()
     {
-        //
+        return view('songs.create');
     }
 
     /**
@@ -36,13 +42,36 @@ class SongController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $song = new Song();
+        $song->fill($request->all());
+
+        $song->artist_id = Auth::user()->artist->id;
+
+        $file = $request->file;
+        $image = $request->image;
+
+        DB::beginTransaction();
+        try {
+            $song->save();
+
+            $file = Storage::putFile('song_file', $file);
+            $image = Storage::putFile('song_image', $image);
+
+            $song->save();
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            back()->withErrors(['error' => '保存に失敗しました']);
+        }
+
+        return redirect()->route('songs.show', compact('song'))
+                ->with(['flash_message' => '登録が完了しました！']);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $song
      * @return \Illuminate\Http\Response
      */
     public function show(Song $song)
@@ -53,22 +82,22 @@ class SongController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $song
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($song)
     {
-        //
+        return view('songs.edit', compact('song'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int  $song
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $song)
     {
         //
     }
@@ -76,10 +105,10 @@ class SongController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int  $song
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($song)
     {
         //
     }

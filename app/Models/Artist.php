@@ -29,4 +29,9 @@ class Artist extends Model
     {
         return $this->belongsTo(\app\Models\Prefecture::class);
     }
+
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
 }

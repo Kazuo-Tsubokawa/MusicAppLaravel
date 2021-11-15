@@ -10,6 +10,13 @@ class Song extends Model
     use HasFactory;
     public $timestamps = false;
 
+    protected $fillable = [
+        'category_id',
+        'title',
+        'file_name',
+        'description'
+    ];
+
     public function artist()
     {
         return $this->belongsTo(\App\Models\Artist::class);

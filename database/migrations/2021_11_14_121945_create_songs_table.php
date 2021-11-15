@@ -25,6 +25,7 @@ class CreateSongsTable extends Migration
             $table->string('title');
             $table->string('file_name')->nullable();
             $table->string('description')->nullable();
+            $table->string('image')->nullable();
         });
     }
 
