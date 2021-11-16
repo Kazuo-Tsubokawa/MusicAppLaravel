@@ -1,8 +1,8 @@
 @extends('layouts.main')
-
 @section('title', 'ランダム再生')
-
 @section('content')
+    @include('partial.flash')
+    @include('partial.errors')
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="{{ route('songs.index') }}">インディーズBOX</a>
@@ -23,18 +23,27 @@
 
     <div class="list-unstyled border shadow vh-100">
         <div>
-            <img src="/storage/song_image/1.jpeg" class="rounded mx-auto d-block h-100">
+            {{-- {{ dd(Storage::url('song_image/' . $song->image)) }} --}}
+            <img src="{{ Storage::url('song_image/' . $song->image) }}" class="rounded mx-auto d-block h-100">
         </div>
         <div>{{ $song->title }}</div>
         <div>{{ $song->artist->name }}</div>
         <div>
-            <audio controls src="/storage/song_file/animal.mp3"></audio>
+            <audio controls autoplay src="{{ Storage::url('song_file/' . $song->file_name) }}"></audio>
         </div>
+        <div>{{ $song->description }}</div>
         <div>
             <a href="{{ route('songs.index') }}">曲送り</a>
         </div>
-        <a href="{{ route('songs.create') }}" class="">
-            <i class="fas fa-plus-circle"></i>aaa
-        </a>
-    </div>
-@endsection
+        <a href="{{ route('songs.create') }}" class="">曲投稿</a>
+        <a href="{{ route('songs.edit', $song) }}">曲情報編集</a>
+
+        <form action="{{ route('songs.destroy', $song) }}" method="post" id="form">
+            @csrf
+            @method('delete')
+        </form>
+        <div class="d-grid col-6 mx-auto gap-3">
+            <input type="submit" value="削除" form="form" class="btn btn-danger btn-lg"
+                onclick="if (!confirm('本当に削除してよろしいですか？')) {return false};">
+        </div>
+    @endsection

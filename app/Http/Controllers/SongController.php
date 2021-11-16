@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Artist;
+use App\Models\Category;
 use App\Models\Song;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -31,7 +32,9 @@ class SongController extends Controller
      */
     public function create()
     {
-        return view('songs.create');
+        $categories = Category::all();
+
+        return view('songs.create', compact('categories'));
     }
 
     /**
@@ -44,7 +47,7 @@ class SongController extends Controller
     {
         $song = new Song();
         $song->fill($request->all());
-        
+
         $song->artist_id = Auth::user()->artist->id;
 
         $file = $request->file;
@@ -52,10 +55,11 @@ class SongController extends Controller
 
         DB::beginTransaction();
         try {
-            $song->save();
+            $songPath = Storage::putFile('song_file', $file);
+            $imagePath = Storage::putFile('song_image', $image);
 
-            $file = Storage::putFile('song_file', $file);
-            $image = Storage::putFile('song_image', $image);
+            $song->file_name = basename($songPath);
+            $song->image = basename($imagePath);
 
             $song->save();
             DB::commit();
@@ -63,7 +67,7 @@ class SongController extends Controller
             DB::rollBack();
             back()->withErrors(['error' => '保存に失敗しました']);
         }
-        dd($song);
+
         return redirect()->route('songs.show', compact('song'))->with(['flash_message' => '登録が完了しました！']);
     }
 
@@ -84,9 +88,11 @@ class SongController extends Controller
      * @param  int  $song
      * @return \Illuminate\Http\Response
      */
-    public function edit($song)
+    public function edit(Song $song)
     {
-        return view('songs.edit', compact('song'));
+        $categories = Category::all();
+
+        return view('songs.edit', compact('song', 'categories'));
     }
 
     /**
@@ -96,9 +102,39 @@ class SongController extends Controller
      * @param  int  $song
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $song)
+    public function update(Request $request, Song $song)
     {
-        //
+        $song->fill($request->all());
+        $image = $request->image;
+        if ($image) {
+            $delete_image_name = $song->image;
+            $imagePath = Storage::putFile('song_image', $image);
+            $song->image = basename($imagePath);
+        }
+
+        DB::beginTransaction();
+        try {
+            $song->save();
+
+            if ($image) {
+                if (!$imagePath) {
+                    throw new \Exception('ジャケット写真の保存に失敗しました');
+                }
+                if (!Storage::delete('song_image/' . $delete_image_name)) {
+                    throw new \Exception('ジャケット写真の保存に失敗しました');
+                    dd($song);
+                }
+            }
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->withInput()->withErrors($e->getMessage());
+        }
+
+        return redirect()
+            ->route('songs.show', $song)
+            ->with(['flash_message' => '更新が完了しました']);
     }
 
     /**
@@ -107,8 +143,33 @@ class SongController extends Controller
      * @param  int  $song
      * @return \Illuminate\Http\Response
      */
-    public function destroy($song)
+    public function destroy(Song $song)
     {
-        //
+        $delete_image_name = $song->image;
+        $delete_file_name = $song->file_name;
+
+        DB::beginTransaction();
+        try {
+            $song->delete();
+            //ジャケ写削除
+            if (!Storage::delete('song_image/' . $delete_image_name)) {
+                throw new \Exception('ジャケ写の削除に失敗しました');
+            }
+            
+            //曲削除
+            if (!Storage::delete('song_file/' . $delete_file_name)) {
+                throw new \Exception('曲の削除に失敗しました');
+            }
+            
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back()
+                ->withErrors($e->getMessage());
+        }
+
+        return redirect()
+            ->route('songs.index')
+            ->with(['flash_message' => '削除しました']);
     }
 }
