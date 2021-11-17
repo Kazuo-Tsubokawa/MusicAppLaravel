@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Psy\ExecutionLoop\RunkitReloader;
 
 class User extends Authenticatable
 {
@@ -64,4 +65,17 @@ class User extends Authenticatable
     {
         return $this->hasOne(Artist::class);
     }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function follows()
+    {
+        return $this->hasMany(Follow::class);
+    }
+
 }
+
+//一人の、一つのユーザーに対してアーティストは1つ

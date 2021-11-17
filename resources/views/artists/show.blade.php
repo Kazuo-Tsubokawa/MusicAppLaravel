@@ -7,6 +7,22 @@
         <img src="{{ Storage::url('artist_image/' . $artist->image) }}" class="rounded mx-auto d-block h-100">
     </div>
     <div>
+        {{-- {{ dd($follow) }} --}}
+        @if ($follow)
+            <form action="{{ route('artists.follows.destroy', [$artist, $follow]) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <input type="submit" value="−フォロー外す−">
+            </form>
+        @else
+            <form action="{{ route('artists.follows.store', $artist) }}" method="POST">
+                @csrf
+                <input type="submit" value="＋フォローする＋">
+            </form>
+        @endif
+    </div>
+
+    <div>
         <p>アーティスト名</p>
         <p>{{ $artist->name }}</p>
     </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Artist;
 use App\Models\Category;
+use App\Models\Like;
 use App\Models\Song;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -79,7 +80,17 @@ class SongController extends Controller
      */
     public function show(Song $song)
     {
-        return view('songs.show', compact('song'));
+        $like = null;
+        foreach ($song->likes as $songLike) {
+            foreach (Auth::user()->likes as $userLike) {
+                if ($songLike->id == $userLike->id) {
+                    $like = $userLike;
+                    break;
+                }
+            }
+        }
+
+        return view('songs.show', compact('song', 'like'));
     }
 
     /**
@@ -91,6 +102,8 @@ class SongController extends Controller
     public function edit(Song $song)
     {
         $categories = Category::all();
+
+        
 
         return view('songs.edit', compact('song', 'categories'));
     }
@@ -172,4 +185,6 @@ class SongController extends Controller
             ->route('songs.index')
             ->with(['flash_message' => '削除しました']);
     }
+
+    
 }

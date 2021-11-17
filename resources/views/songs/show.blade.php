@@ -1,6 +1,6 @@
 <x-app-layout>
-@extends('layouts.main')
-@section('title', 'ランダム再生')
+    @extends('layouts.main')
+    @section('title', 'ランダム再生')
     @include('partial.flash')
     @include('partial.errors')
 
@@ -29,22 +29,39 @@
         <div>{{ $song->title }}</div>
         <div>
             <a href="{{ route('artists.show', $song->artist) }}">{{ $song->artist->name }}</a>
-        <div>
-            <audio controls autoplay src="{{ Storage::url('song_file/' . $song->file_name) }}"></audio>
-        </div>
-        <div>{{ $song->description }}</div>
-        <div>
-            <a href="{{ route('songs.index') }}">曲送り</a>
-        </div>
-        <a href="{{ route('songs.create') }}" class="">曲投稿</a>
-        <a href="{{ route('songs.edit', $song) }}">曲情報編集</a>
+            <div>
+                <audio controls autoplay src="{{ Storage::url('song_file/' . $song->file_name) }}"></audio>
+            </div>
+            
+            <div>
+                {{-- {{ dd($like) }} --}}
+                @if ($like)
+                    <form action="{{ route('songs.likes.destroy', [$song, $like]) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <input type="submit" value="♥">
+                    </form>
+                @else
+                    <form action="{{ route('songs.likes.store', $song) }}" method="POST">
+                        @csrf
+                        <input type="submit" value="♡">
+                    </form>
+                @endif
 
-        <form action="{{ route('songs.destroy', $song) }}" method="post" id="form">
-            @csrf
-            @method('delete')
-        </form>
-        <div class="d-grid col-6 mx-auto gap-3">
-            <input type="submit" value="削除" form="form" class="btn btn-danger btn-lg"
-                onclick="if (!confirm('本当に削除してよろしいですか？')) {return false};">
-        </div>
-    </x-app-layout>
+            </div>
+            <div>{{ $song->description }}</div>
+            <div>
+                <a href="{{ route('songs.index') }}">曲送り</a>
+            </div>
+            <a href="{{ route('songs.create') }}" class="">曲投稿</a>
+            <a href="{{ route('songs.edit', $song) }}">曲情報編集</a>
+
+            <form action="{{ route('songs.destroy', $song) }}" method="post" id="form">
+                @csrf
+                @method('delete')
+            </form>
+            <div class="d-grid col-6 mx-auto gap-3">
+                <input type="submit" value="削除" form="form" class="btn btn-danger btn-lg"
+                    onclick="if (!confirm('本当に削除してよろしいですか？')) {return false};">
+            </div>
+</x-app-layout>

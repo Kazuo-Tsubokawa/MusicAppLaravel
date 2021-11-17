@@ -75,7 +75,16 @@ class ArtistController extends Controller
      */
     public function show(Artist $artist)
     {
-        return view('artists.show', compact('artist'));
+        $follow = null;
+        foreach ($artist->follows as $artistFollow) {
+            foreach (Auth::user()->follows as $userFollow) {
+                if ($artistFollow->id == $userFollow->id) {
+                    $follow = $userFollow;
+                    break;
+                }
+            }
+        }
+        return view('artists.show', compact('artist', 'follow'));
     }
 
     /**

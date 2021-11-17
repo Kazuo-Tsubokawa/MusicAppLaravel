@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Controllers\ArtistController;
+use App\Http\Controllers\FollowController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\SongController;
 
 use App\Models\Artist;
+use App\Models\Follow;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +32,10 @@ Route::resource('songs', SongController::class);
 Route::resource('artists', ArtistController::class);
 
 Route::resource('members', MemberController::class);
+
+Route::resource('songs.likes', LikeController::class);
+
+Route::resource('artists.follows', FollowController::class);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
