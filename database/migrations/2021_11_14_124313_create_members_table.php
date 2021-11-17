@@ -24,7 +24,7 @@ class CreateMembersTable extends Migration
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
             $table->string('name');
-            $table->string('description');
+            // $table->string('description');
         });
     }
 

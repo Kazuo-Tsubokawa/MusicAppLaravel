@@ -10,6 +10,13 @@ class Artist extends Model
     use HasFactory;
     public $timestamps = false;
 
+    protected $fillable = [
+        'name',
+        'prefecture_id',
+        'user_id',
+        'introduction'
+    ];
+
     public function members()
     {
         return $this->hasMany(\App\Models\Member::class);
@@ -27,7 +34,7 @@ class Artist extends Model
 
     public function prefecture()
     {
-        return $this->belongsTo(\app\Models\Prefecture::class);
+        return $this->belongsTo(\App\Models\Prefecture::class);
     }
 
     public function user()

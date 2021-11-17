@@ -19,7 +19,7 @@ class MemberFactory extends Factory
             'artist_id' => Artist::inRandomOrder()->first(),
             'user_id' => User::inRandomOrder()->first(),
             'name' => $this->faker->word() . $this->faker->name(),
-            'description' => $this->faker->paragraph(),
+            // 'description' => $this->faker->paragraph(),
         ];
     }
 }

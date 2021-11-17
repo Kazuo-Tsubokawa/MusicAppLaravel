@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\ArtistController;
+use App\Http\Controllers\MemberController;
 use App\Http\Controllers\SongController;
+
+use App\Models\Artist;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,9 +22,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Route::get('/', [ArticleController::class, 'index'])->name('root');
+
 Route::resource('songs', SongController::class);
 
+Route::resource('artists', ArtistController::class);
+
+Route::resource('members', MemberController::class);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+

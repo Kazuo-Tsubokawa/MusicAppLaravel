@@ -1,6 +1,6 @@
+<x-app-layout>
 @extends('layouts.main')
 @section('title', 'ランダム再生')
-@section('content')
     @include('partial.flash')
     @include('partial.errors')
 
@@ -27,7 +27,8 @@
             <img src="{{ Storage::url('song_image/' . $song->image) }}" class="rounded mx-auto d-block h-100">
         </div>
         <div>{{ $song->title }}</div>
-        <div>{{ $song->artist->name }}</div>
+        <div>
+            <a href="{{ route('artists.show', $song->artist) }}">{{ $song->artist->name }}</a>
         <div>
             <audio controls autoplay src="{{ Storage::url('song_file/' . $song->file_name) }}"></audio>
         </div>
@@ -46,4 +47,4 @@
             <input type="submit" value="削除" form="form" class="btn btn-danger btn-lg"
                 onclick="if (!confirm('本当に削除してよろしいですか？')) {return false};">
         </div>
-    @endsection
+    </x-app-layout>
