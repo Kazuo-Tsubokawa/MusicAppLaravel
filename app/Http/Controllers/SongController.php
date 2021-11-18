@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Like;
 use App\Models\Song;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -55,7 +56,8 @@ class SongController extends Controller
         $image = $request->image;
 
         DB::beginTransaction();
-        try {
+        // try {
+            // dd(Storage::url('song_file'));
             $songPath = Storage::putFile('song_file', $file);
             $imagePath = Storage::putFile('song_image', $image);
 
@@ -64,11 +66,11 @@ class SongController extends Controller
 
             $song->save();
             DB::commit();
-        } catch (\Exception $e) {
-            DB::rollBack();
-            back()->withErrors(['error' => '保存に失敗しました']);
-        }
-
+        // } catch (\Exception $e) {
+        //     DB::rollBack();
+        //     back()->withErrors(['error' => '保存に失敗しました']);
+        // }
+        // dd($song);
         return redirect()->route('songs.show', compact('song'))->with(['flash_message' => '登録が完了しました！']);
     }
 
@@ -146,7 +148,7 @@ class SongController extends Controller
         }
 
         return redirect()
-            ->route('songs.show', $song)
+            ->route('songs.show', compact('song'))
             ->with(['flash_message' => '更新が完了しました']);
     }
 
