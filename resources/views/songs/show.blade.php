@@ -32,7 +32,7 @@
             <div>
                 <audio controls autoplay src="{{ Storage::url('song_file/' . $song->file_name) }}"></audio>
             </div>
-            
+
             <div>
                 {{-- {{ dd($like) }} --}}
                 @if ($like)
@@ -54,14 +54,19 @@
                 <a href="{{ route('songs.index') }}">曲送り</a>
             </div>
             <a href="{{ route('songs.create') }}" class="">曲投稿</a>
-            <a href="{{ route('songs.edit', $song) }}">曲情報編集</a>
 
-            <form action="{{ route('songs.destroy', $song) }}" method="post" id="form">
-                @csrf
-                @method('delete')
-            </form>
-            <div class="d-grid col-6 mx-auto gap-3">
-                <input type="submit" value="削除" form="form" class="btn btn-danger btn-lg"
-                    onclick="if (!confirm('本当に削除してよろしいですか？')) {return false};">
-            </div>
+            @can('update', $song)
+            <a href="{{ route('songs.edit', $song) }}">曲情報編集</a>
+            @endcan
+
+            @can('delete', $song)
+                <form action="{{ route('songs.destroy', $song) }}" method="post" id="form">
+                    @csrf
+                    @method('delete')
+                </form>
+                <div class="d-grid col-6 mx-auto gap-3">
+                    <input type="submit" value="削除" form="form" class="btn btn-danger btn-lg"
+                        onclick="if (!confirm('本当に削除してよろしいですか？')) {return false};">
+                </div>
+            @endcan
 </x-app-layout>

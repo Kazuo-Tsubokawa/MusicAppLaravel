@@ -16,6 +16,13 @@ use PhpParser\Node\Arg;
 
 class SongController extends Controller
 {
+    public function __construct()
+    {
+        // アクションに合わせたpolicyのメソッドで認可されていないユーザーはエラーを投げる
+        $this->authorizeResource(Song::class, 'song');
+    }
+
+
     /**
      * Display a listing of the resource.
      *

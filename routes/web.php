@@ -27,7 +27,12 @@ Route::get('/', function () {
 
 // Route::get('/', [ArticleController::class, 'index'])->name('root');
 
-Route::resource('songs', SongController::class);
+Route::resource('songs', SongController::class)
+    ->middleware(['auth'])
+    ->only(['create', 'store', 'edit', 'update', 'destroy']);
+
+Route::resource('songs', SongController::class)
+    ->only(['index', 'show']);
 
 Route::resource('artists', ArtistController::class);
 
@@ -40,5 +45,3 @@ Route::resource('artists.follows', FollowController::class);
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
-
-
