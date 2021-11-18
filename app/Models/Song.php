@@ -19,20 +19,20 @@ class Song extends Model
         'description'
     ];
 
-    public function scopeSearch(Builder $query, $params)
-    {
-        if (!empty($params['prefecture'])) {
-            $query->whereHas('prefecture', function ($q) use ($params) {
-                $q->where('name', 'like', '%' . $params['prefecture'] . '%');
-            });
-        }
-        if (!empty($params['category'])) {
-            $query->whereHas('category', function ($q) use ($params) {
-                $q->where('name', 'like', '%' . $params['category'] . '%');
-            });
-        }
-        return $query;
-    }
+    // public function scopeSearch(Builder $query, $params)
+    // {
+    //     if (!empty($params['prefecture'])) {
+    //         $query->whereHas('prefecture', function ($q) use ($params) {
+    //             $q->where('name', 'like', '%' . $params['prefecture'] . '%');
+    //         });
+    //     }
+    //     if (!empty($params['category'])) {
+    //         $query->whereHas('category', function ($q) use ($params) {
+    //             $q->where('name', 'like', '%' . $params['category'] . '%');
+    //         });
+    //     }
+    //     return $query;
+    // }
 
 
     public function artist()

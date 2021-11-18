@@ -23,6 +23,7 @@
 
     <div class="list-unstyled border shadow vh-100">
         <div>
+            {{-- {{ dd(Request::url()) }} --}}
             {{-- {{ dd(Storage::url('song_image/' . $song->image)) }} --}}
             <img src="{{ Storage::url('song_image/' . $song->image) }}" class="rounded mx-auto d-block h-100">
         </div>

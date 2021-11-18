@@ -196,45 +196,80 @@ class SongController extends Controller
             ->with(['flash_message' => '削除しました']);
     }
 
-    public function searchCategory($categoryId)
-    {
-        // $category = $request->category;
-        // $params = $request->query();
-        // $songs = Song::search($params);
+    // public function searchCategory($categoryId)
+    // {
+    //     // $category = $request->category;
+    //     // $params = $request->query();
+    //     // $songs = Song::search($params);
 
-        // $songs->appends(compact('category'));
-        // return view('songs.show', compact('songs'));
-
+    //     // $songs->appends(compact('category'));
+    //     // return view('songs.show', compact('songs'));
         
-        $songIdArray = [];
-        $songs = Song::where('category_id', $categoryId)->get();
-        foreach ($songs as $song) {
-            array_push($songIdArray, $song->id);
-        }
-        $songId = array_rand($songIdArray, 1);
-        $song = Song::find($songIdArray[$songId]);
-        // dd($PlaySong);
-        $like = null;
-        foreach ($song->likes as $songLike) {
-            foreach (Auth::user()->likes as $userLike) {
-                if ($songLike->id == $userLike->id) {
-                    $like = $userLike;
-                    break;
-                }
-            }
-        }
+    //     $songIdArray = [];
+    //     $songs = Song::where('category_id', $categoryId)->get();
+    //     foreach ($songs as $song) {
+    //         array_push($songIdArray, $song->id);
+    //     }
+    //     $songId = array_rand($songIdArray, 1);
+    //     $song = Song::find($songIdArray[$songId]);
+    //     // dd($PlaySong);
+    //     $like = null;
+    //     foreach ($song->likes as $songLike) {
+    //         foreach (Auth::user()->likes as $userLike) {
+    //             if ($songLike->id == $userLike->id) {
+    //                 $like = $userLike;
+    //                 break;
+    //             }
+    //         }
+    //     }
 
-        return view('songs.show', compact(['song','like']));
+    //     return view('songs.show', compact(['song','like']));
 
-    }
+    // }
 
-    public function searchPrefecture(Request $request)
-    {
-        $prefecture = $request->prefecture;
-        $params = $request->query();
-        $songs = Song::search($params);
+    // public function searchPrefecture($prefectureId)
+    // {
+    //     $songs =[];
+    //     $songIdArray = [];
+    //     $artists = Artist::where('prefecture_id', $prefectureId)->get();
+        
+    //     foreach ($artists as $artist) {
+    //         foreach ($artist->songs as $song) {
+    //             array_push($songs, $song->id);
+    //         }
+    //     }
 
-        $songs->appends(compact('prefecture'));
-        return view('songs.show', compact('songs'));
-    }
+    //     $songId = array_rand($songs, 1);
+    //     $song = Song::find($songs[$songId]);
+    //     // dd($song);
+    //     $like = null;
+    //     foreach ($song->likes as $songLike) {
+    //         foreach (Auth::user()->likes as $userLike) {
+    //             if ($songLike->id == $userLike->id) {
+    //                 $like = $userLike;
+    //                 break;
+    //             }
+    //         }
+    //     }
+
+    //     return view('songs.show', compact(['song', 'like']));
+
+    // }
+
+    // public function filter(Request $request) {
+    //     $category = $request->category;
+    //     $prefecture = $request->prefecture;
+    //     $query = Song::query();
+    //     if(!empty($category)) {
+    //         $query->where('category_id', $category);
+    //     }
+        
+    //     if(!empty($prefecture)) {
+    //         $query->join('songs', 'artists.id' ,'=', 'songs.artist_id')
+    //         ->where('prefecture_id', $prefecture)
+    //         ->get();
+    //     }
+    //     dd($query->get());
+
+    // }
 }

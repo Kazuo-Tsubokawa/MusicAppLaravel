@@ -27,6 +27,9 @@ Route::get('/', function () {
 
 // Route::get('/', [ArticleController::class, 'index'])->name('root');
 
+// Route::get('songs/filter', [SongController::class, 'filter'])
+//     ->name('songs.filter');
+
 Route::resource('songs', SongController::class)
     ->middleware(['auth'])
     ->only(['create', 'store', 'edit', 'update', 'destroy']);
@@ -47,3 +50,5 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::get('songs/category/{cateId}', [SongController::class, 'searchCategory']);
+Route::get('songs/prefecture/{preId}', [SongController::class, 'searchPrefecture']);
+
