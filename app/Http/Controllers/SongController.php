@@ -64,15 +64,15 @@ class SongController extends Controller
 
         DB::beginTransaction();
         // try {
-            // dd(Storage::url('song_file'));
-            $songPath = Storage::putFile('song_file', $file);
-            $imagePath = Storage::putFile('song_image', $image);
+        // dd(Storage::url('song_file'));
+        $songPath = Storage::putFile('song_file', $file);
+        $imagePath = Storage::putFile('song_image', $image);
 
-            $song->file_name = basename($songPath);
-            $song->image = basename($imagePath);
+        $song->file_name = basename($songPath);
+        $song->image = basename($imagePath);
 
-            $song->save();
-            DB::commit();
+        $song->save();
+        DB::commit();
         // } catch (\Exception $e) {
         //     DB::rollBack();
         //     back()->withErrors(['error' => '保存に失敗しました']);
@@ -89,6 +89,7 @@ class SongController extends Controller
      */
     public function show(Song $song)
     {
+
         $like = null;
         foreach ($song->likes as $songLike) {
             foreach (Auth::user()->likes as $userLike) {
@@ -112,7 +113,7 @@ class SongController extends Controller
     {
         $categories = Category::all();
 
-        
+
 
         return view('songs.edit', compact('song', 'categories'));
     }
@@ -177,12 +178,12 @@ class SongController extends Controller
             if (!Storage::delete('song_image/' . $delete_image_name)) {
                 throw new \Exception('ジャケ写の削除に失敗しました');
             }
-            
+
             //曲削除
             if (!Storage::delete('song_file/' . $delete_file_name)) {
                 throw new \Exception('曲の削除に失敗しました');
             }
-            
+
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
@@ -195,5 +196,45 @@ class SongController extends Controller
             ->with(['flash_message' => '削除しました']);
     }
 
-    
+    public function searchCategory($categoryId)
+    {
+        // $category = $request->category;
+        // $params = $request->query();
+        // $songs = Song::search($params);
+
+        // $songs->appends(compact('category'));
+        // return view('songs.show', compact('songs'));
+
+        
+        $songIdArray = [];
+        $songs = Song::where('category_id', $categoryId)->get();
+        foreach ($songs as $song) {
+            array_push($songIdArray, $song->id);
+        }
+        $songId = array_rand($songIdArray, 1);
+        $song = Song::find($songIdArray[$songId]);
+        // dd($PlaySong);
+        $like = null;
+        foreach ($song->likes as $songLike) {
+            foreach (Auth::user()->likes as $userLike) {
+                if ($songLike->id == $userLike->id) {
+                    $like = $userLike;
+                    break;
+                }
+            }
+        }
+
+        return view('songs.show', compact(['song','like']));
+
+    }
+
+    public function searchPrefecture(Request $request)
+    {
+        $prefecture = $request->prefecture;
+        $params = $request->query();
+        $songs = Song::search($params);
+
+        $songs->appends(compact('prefecture'));
+        return view('songs.show', compact('songs'));
+    }
 }

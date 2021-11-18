@@ -45,3 +45,5 @@ Route::resource('artists.follows', FollowController::class);
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+Route::get('songs/category/{cateId}', [SongController::class, 'searchCategory']);
