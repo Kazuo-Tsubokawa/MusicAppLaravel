@@ -2,14 +2,14 @@
     @section('title', '詳細画面')
     @include('partial.flash')
     @include('partial.errors')
+    <div class="container lg:w-1/2 md:w-4/5 w-11/12 mx-auto mt-8 px-8 bg-gray-400 shadow-md rounded-md">
+        <h2 class="text-center text-3xl text-white font-bold pt-6 tracking-widest mb-4">プロフィール</h2>
     <div>
-        <p>プロフィール</p>
-        <img src="{{ Storage::url('artist_image/' . $artist->image) }}" class="rounded mx-auto d-block h-100">
+        <img src="{{ Storage::url('artist_image/' . $artist->image) }}" class="w-full">
     </div>
 
 
     <div>
-        {{-- {{ dd($follow) }} --}}
         @if (Auth::user()->artist->id !== $artist->id) 
         @if ($follow)
         <form action="{{ route('artists.follows.destroy', [$artist, $follow]) }}" method="POST">
@@ -20,7 +20,7 @@
         @else
             <form action="{{ route('artists.follows.store', $artist) }}" method="POST">
                 @csrf
-                <input type="submit" value="＋フォローする＋">
+                <input type="submit" value="＋フォローする＋">;
             </form>
         @endif
         @endif
@@ -47,4 +47,5 @@
     </div>
     <a href="{{ route('songs.index') }}">戻る</a>
 
+    </div>
 </x-app-layout>

@@ -3,35 +3,30 @@
     @section('title', 'ランダム再生')
     @include('partial.flash')
     @include('partial.errors')
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="{{ route('songs.index') }}">インディーズBOX</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
-            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" name="category" placeholder="ジャンルから探す">
-                <input class="form-control mr-sm-2" type="search" name="prefecture" placeholder="活動地域から探す">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
-        </div>
-    </nav>
-
-
-    <div class="list-unstyled border shadow vh-100">
+    <div class="container lg:w-1/2 md:w-4/5 w-11/12 mx-auto mt-8 px-8 bg-gray-400 shadow-md rounded-md">
+        <h2 class="text-center text-3xl text-white font-bold pt-6 tracking-widest mb-4">インディーズBOX</h2>
         <div>
             {{-- {{ dd(Request::url()) }} --}}
             {{-- {{ dd(Storage::url('song_image/' . $song->image)) }} --}}
-            <img src="{{ Storage::url('song_image/' . $song->image) }}" class="rounded mx-auto d-block h-100">
+            <img src="{{ Storage::url('song_image/' . $song->image) }}" class="w-full">
         </div>
-        <div>{{ $song->title }}</div>
-        <div>
-            <a href="{{ route('artists.show', $song->artist) }}">{{ $song->artist->name }}</a>
+
+        <div class="text-2xl mt-4 text-white font-bold mb-2">{{ $song->title }}
+
+            <div class="flex flex-row-reverse">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    <a href="{{ route('songs.index') }}">曲送り</a>
+                </button>
+            </div>
+
             <div>
-                <audio controls autoplay src="{{ Storage::url('song_file/' . $song->file_name) }}"></audio>
+                <a href="{{ route('artists.show', $song->artist) }}"
+                    class="text-1xl mt-4 text-white font-bold mb-2">{{ $song->artist->name }}</a>
+            </div>
+
+            <div>
+                <audio controls autoplay src="{{ Storage::url('song_file/' . $song->file_name) }}"
+                    class="w-full mt-2"></audio>
             </div>
 
             <div>
@@ -51,23 +46,31 @@
 
             </div>
             <div>{{ $song->description }}</div>
-            <div>
-                <a href="{{ route('songs.index') }}">曲送り</a>
-            </div>
-            <a href="{{ route('songs.create') }}" class="">曲投稿</a>
+
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <a href="{{ route('songs.create') }}" class="">投稿</a>
+            </button>
 
             @can('update', $song)
-            <a href="{{ route('songs.edit', $song) }}">曲情報編集</a>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    <a href="{{ route('songs.edit', $song) }}">編集</a>
+                </button>
             @endcan
 
             @can('delete', $song)
                 <form action="{{ route('songs.destroy', $song) }}" method="post" id="form">
                     @csrf
                     @method('delete')
-                </form>
-                <div class="d-grid col-6 mx-auto gap-3">
-                    <input type="submit" value="削除" form="form" class="btn btn-danger btn-lg"
+                    <input type="submit" value="削除" form="form"
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                         onclick="if (!confirm('本当に削除してよろしいですか？')) {return false};">
-                </div>
+                </form>
             @endcan
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" name="category" placeholder="ジャンルから探す">
+                <input class="form-control mr-sm-2" type="search" name="prefecture" placeholder="活動地域から探す">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
 </x-app-layout>
