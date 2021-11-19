@@ -32,8 +32,8 @@ class SongController extends Controller
     {
         $song = new Song();
         $song->fill($request->all());
-        $artist = Artist::where('user_id', $request->user()->id)->get();
-        $song->artist_id = $artist[0]['id'];
+        $artist = Artist::where('user_id', $request->user()->id)->first();
+        $song->artist_id = $artist['id'];
 
         $song->file_name = $request->file_name;
         $song->image = $request->image;
@@ -51,9 +51,12 @@ class SongController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Song $song)
+    public function show($songid)
     {
-        //
+        $song = Song::find($songid);
+
+        return $song;
+
     }
 
     /**
@@ -63,9 +66,20 @@ class SongController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Song $song)
+    public function update(Request $request, $song_id)
     {
-        //
+        $song = Song::find($song_id);
+        $artist = Artist::where('user_id', $request->user()->id)->first();
+        if ($song->artist_id != $artist->id || $artist->count() == 0) {
+            return ["message" => "error"];
+        };
+        $song->fill($request->all());
+        $song->image = $request->image;
+
+        $song->save();
+
+        return ["song" => $song];
+
     }
 
     /**

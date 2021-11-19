@@ -1,76 +1,71 @@
 <x-app-layout>
     @extends('layouts.main')
     @section('title', 'ランダム再生')
-    @include('partial.flash')
-    @include('partial.errors')
-    <div class="container lg:w-1/2 md:w-4/5 w-11/12 mx-auto mt-8 px-8 bg-gray-400 shadow-md rounded-md">
-        <h2 class="text-center text-3xl text-white font-bold pt-6 tracking-widest mb-4">インディーズBOX</h2>
+    {{-- @include('partial.flash') --}}
+    {{-- @include('partial.errors') --}}
+    <h2 class="text-center text-3xl text-blue-400 font-bold pt-3 tracking-widest mb-4">インディーズBOX</h2>
+    <div class="container lg:w-1/2 md:w-4/5 w-11/12 mx-auto pt-5 px-8 bg-gray-400 shadow-md rounded-md">
         <div>
             {{-- {{ dd(Request::url()) }} --}}
             {{-- {{ dd(Storage::url('song_image/' . $song->image)) }} --}}
-            <img src="{{ Storage::url('song_image/' . $song->image) }}" class="w-full">
+            <img src="{{ Storage::url('song_image/' . $song->image) }}" alt="image" width="300" height="300"
+                style="display: block; margin: auto;">
+        </div>
+        <div class="text-center">
+            <h3 class="text-2xl mt-4 text-white font-bold mb-2 ml-60 pl-6" style="float: left">
+                {{ $song->title }}
+            </h3>
+            @if ($like)
+                <form action="{{ route('songs.likes.destroy', [$song, $like]) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <input type="submit" value="♥♥♥" class="mt-5 bg-red-400">
+                </form>
+            @else
+                <form action="{{ route('songs.likes.store', $song) }}" method="POST">
+                    @csrf
+                    <input type="submit" value="♡♡♡" class="mt-5 bg-red-400">
+                </form>
+            @endif
         </div>
 
-        <div class="text-2xl mt-4 text-white font-bold mb-2">{{ $song->title }}
+        <div class="text-center text-1xl mt-4 text-white font-bold mb-2">
+            <a href="{{ route('artists.show', $song->artist) }}">{{ $song->artist->name }}</a>
+        </div>
 
-            <div class="flex flex-row-reverse">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    <a href="{{ route('songs.index') }}">曲送り</a>
-                </button>
-            </div>
 
-            <div>
-                <a href="{{ route('artists.show', $song->artist) }}"
-                    class="text-1xl mt-4 text-white font-bold mb-2">{{ $song->artist->name }}</a>
-            </div>
+        <audio controls autoplay src="{{ Storage::url('song_file/' . $song->file_name) }}" class="w-250 ml-20"
+            style="float: left"></audio>
 
-            <div>
-                <audio controls autoplay src="{{ Storage::url('song_file/' . $song->file_name) }}"
-                    class="w-full mt-2"></audio>
-            </div>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2 ml-20">
+            <a href="{{ route('songs.index') }}">▶▶曲送り▶▶</a>
+        </button>
 
-            <div>
-                {{-- {{ dd($like) }} --}}
-                @if ($like)
-                    <form action="{{ route('songs.likes.destroy', [$song, $like]) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <input type="submit" value="♥">
-                    </form>
-                @else
-                    <form action="{{ route('songs.likes.store', $song) }}" method="POST">
-                        @csrf
-                        <input type="submit" value="♡">
-                    </form>
-                @endif
+        <p class="text-center text-1xl mt-5 bg-red-100 text-black font-bold mb-2">曲の説明</p>
 
-            </div>
-            <div>{{ $song->description }}</div>
+        <div class="text-center text-1xl mt-4 text-white font-bold mb-2">{{ $song->description }}</div>
 
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+
+
+        <div class="text-center">
+            <button class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 mr-3 rounded text-center">
                 <a href="{{ route('songs.create') }}" class="">投稿</a>
             </button>
-
             @can('update', $song)
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 mr-3 rounded text-center">
                     <a href="{{ route('songs.edit', $song) }}">編集</a>
                 </button>
             @endcan
-
             @can('delete', $song)
-                <form action="{{ route('songs.destroy', $song) }}" method="post" id="form">
+                <form action="{{ route('songs.destroy', $song) }}" method="post" id="form" class="display: inline-block">
                     @csrf
                     @method('delete')
                     <input type="submit" value="削除" form="form"
-                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded text-center"
                         onclick="if (!confirm('本当に削除してよろしいですか？')) {return false};">
                 </form>
             @endcan
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" name="category" placeholder="ジャンルから探す">
-                <input class="form-control mr-sm-2" type="search" name="prefecture" placeholder="活動地域から探す">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
         </div>
+
     </div>
 </x-app-layout>

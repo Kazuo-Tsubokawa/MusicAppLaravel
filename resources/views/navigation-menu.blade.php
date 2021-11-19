@@ -10,11 +10,12 @@
                     </a>
                 </div>
 
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-jet-nav-link>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex pt-1 pl-80">
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" name="category" placeholder="ジャンルから探す">
+                        <input class="form-control mr-sm-2 ml-2" type="search" name="prefecture" placeholder="活動地域から探す">
+                        <button class="btn btn-outline-success my-2 my-sm-0 ml-2 text-gray-800" type="submit">検索</button>
+                    </form>
                 </div>
             </div>
 
@@ -112,16 +113,16 @@
                                 {{ __('Profile') }}
                             </x-jet-dropdown-link>
 
-                            @if ($artist = Auth::user()->artist) 
-                            <x-jet-responsive-nav-link href="{{ route('artists.edit', $artist) }}"
-                                :active="request()->routeIs('artists.edit', $artist)">
-                                {{ __('アーティスト情報編集') }}
-                            </x-jet-responsive-nav-link>
+                            @if ($artist = Auth::user()->artist)
+                                <x-jet-responsive-nav-link href="{{ route('artists.edit', $artist) }}"
+                                    :active="request()->routeIs('artists.edit', $artist)">
+                                    {{ __('アーティスト情報編集') }}
+                                </x-jet-responsive-nav-link>
                             @else
-                            <x-jet-responsive-nav-link href="{{ route('artists.create') }}"
-                                :active="request()->routeIs('artists.create')">
-                                {{ __('アーティスト登録') }}
-                            </x-jet-responsive-nav-link>
+                                <x-jet-responsive-nav-link href="{{ route('artists.create') }}"
+                                    :active="request()->routeIs('artists.create')">
+                                    {{ __('アーティスト登録') }}
+                                </x-jet-responsive-nav-link>
                             @endif
 
 

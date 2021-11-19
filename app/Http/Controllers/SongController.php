@@ -59,17 +59,17 @@ class SongController extends Controller
 
         $song->artist_id = Auth::user()->artist->id;
 
-        $file = $request->file;
         $image = $request->image;
+        $file = $request->file;
 
         DB::beginTransaction();
         // try {
         // dd(Storage::url('song_file'));
-        $songPath = Storage::putFile('song_file', $file);
         $imagePath = Storage::putFile('song_image', $image);
+        $songPath = Storage::putFile('song_file', $file);
 
-        $song->file_name = basename($songPath);
         $song->image = basename($imagePath);
+        $song->file_name = basename($songPath);
 
         $song->save();
         DB::commit();

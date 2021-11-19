@@ -1,51 +1,57 @@
 <x-app-layout>
     @section('title', '詳細画面')
-    @include('partial.flash')
-    @include('partial.errors')
-    <div class="container lg:w-1/2 md:w-4/5 w-11/12 mx-auto mt-8 px-8 bg-gray-400 shadow-md rounded-md">
+    {{-- @include('partial.flash') --}}
+    {{-- @include('partial.errors') --}}
+    <div class="container lg:w-1/2 md:w-4/5 w-11/12 mx-auto mt-4 px-8 bg-gray-400 shadow-md rounded-md">
         <h2 class="text-center text-3xl text-white font-bold pt-6 tracking-widest mb-4">プロフィール</h2>
-    <div>
-        <img src="{{ Storage::url('artist_image/' . $artist->image) }}" class="w-full">
-    </div>
+        <div>
+            <img src="{{ Storage::url('artist_image/' . $artist->image) }}" alt="image" width="300" height="300"
+                style="display: block; margin: auto;">
+        </div>
 
 
-    <div>
-        @if (Auth::user()->artist->id !== $artist->id) 
-        @if ($follow)
-        <form action="{{ route('artists.follows.destroy', [$artist, $follow]) }}" method="POST">
-            @csrf
-            @method('DELETE')
-            <input type="submit" value="−フォロー外す−">
-        </form>
-        @else
-            <form action="{{ route('artists.follows.store', $artist) }}" method="POST">
-                @csrf
-                <input type="submit" value="＋フォローする＋">;
-            </form>
-        @endif
-        @endif
-    </div>
+        <div class="text-center">
+            @if (Auth::user()->artist->id !== $artist->id)
+                @if ($follow)
+                    <form action="{{ route('artists.follows.destroy', [$artist, $follow]) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <input type="submit" value="フォローやめる" class="mt-5 bg-red-200">
+                    </form>
+                @else
+                    <form action="{{ route('artists.follows.store', $artist) }}" method="POST">
+                        @csrf
+                        <input type="submit" value="フォローする✓" class="mt-5 bg-green-200">
+                    </form>
+                @endif
+            @endif
+        </div>
+
+        <div class="mb-4 text-1xl font-bold mt-4">
+            <label class="block text-white mb-2">
+                アーティスト名 : {{ $artist->name }}</label>
+        </div>
+
+        <div class="mb-4 text-1xl font-bold">
+            <label class="block text-white mb-2">メンバー</label>
+            @foreach ($artist->members as $member)
+                <p>{{ $member->name }}</p>
+            @endforeach
+        </div>
+
+        <div class="mb-4 text-1xl font-bold">
+            <label class="block text-white mb-2">
+                活動地域 : {{ $artist->prefecture->name }}</label>
+        </div>
 
 
-    <div>
-        <p>アーティスト名</p>
-        <p>{{ $artist->name }}</p>
-    </div>
-    <div>
-        <p>メンバー</p>
-        @foreach ($artist->members as $member)
-            <p>{{ $member->name }}</p>
-        @endforeach
-    </div>
-    <div>
-        <p>活動地域</p>
-        <p>{{ $artist->prefecture->name }}</p>
-    </div>
-    <div>
-        <p>紹介</p>
-        <p>{{ $artist->introduction }}</p>
-    </div>
-    <a href="{{ route('songs.index') }}">戻る</a>
+        <div class="mb-4 text-1xl font-bold">
+            <label class="block text-white mb-2">
+                紹介 : {{ $artist->introduction }}</label>
+        </div>
 
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-3 rounded text-center">
+            <a href="{{ route('songs.index') }}">戻る</a>
+        </button>
     </div>
 </x-app-layout>

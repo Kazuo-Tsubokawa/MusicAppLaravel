@@ -49,14 +49,15 @@ Authorization: Bearer 2|PvO22eNPQLgG8oKZKhJYmJ58B7QJFhJiMx5rdCIO
 ###
 
 # update
-PUT  /api/songs/1
+PUT  /api/songs/48
 Host: localhost
 Content-Type: application/json
 Authorization: Bearer 2|PvO22eNPQLgG8oKZKhJYmJ58B7QJFhJiMx5rdCIO
 
 {
     "category_id": "2",
-    "title": "title",
-    "description": "aaaa",
+    "title": "titleeeen",
+    "file_name": "2.mp3",
+    "description": "bbbb",
     "image": "2.jpeg"
 }

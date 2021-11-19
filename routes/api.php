@@ -28,4 +28,5 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::group(['middleware' => ['api']], function(){
     Route::apiResource('songs', App\Http\Controllers\Api\SongController::class)
     ->middleware('auth:sanctum');
+    // ->only(['update', ''])
 });
