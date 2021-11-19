@@ -112,9 +112,6 @@ class SongController extends Controller
     public function edit(Song $song)
     {
         $categories = Category::all();
-
-
-
         return view('songs.edit', compact('song', 'categories'));
     }
 

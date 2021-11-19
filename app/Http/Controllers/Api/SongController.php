@@ -17,10 +17,10 @@ class SongController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-    }
+    // public function index()
+    // {
+    //     //
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -34,15 +34,6 @@ class SongController extends Controller
         $song->fill($request->all());
         $artist = Artist::where('user_id', $request->user()->id)->get();
         $song->artist_id = $artist[0]['id'];
-
-        // $file = $request->file;
-        // $image = $request->image;
-
-        // DB::beginTransaction();
-        // try {
-        // dd(Storage::url('song_file'));
-        // $songPath = Storage::putFile('song_file', $file);
-        // $imagePath = Storage::putFile('song_image', $image);
 
         $song->file_name = $request->file_name;
         $song->image = $request->image;
@@ -62,7 +53,7 @@ class SongController extends Controller
      */
     public function show(Song $song)
     {
-        // $song->fill($request->all());
+        $song
         
     }
 
@@ -75,15 +66,6 @@ class SongController extends Controller
      */
     public function update(Request $request, Song $song)
     {
-        $song->fill($request->all());
-        $artist = Artist::where('user_id', $request->user()->id)->get();
-        $song->artist_id = $artist[0]['id'];
-
-        $song->image = $request->image;
-
-            $song->save();
-            $songArtist = [$song, $artist[0], $request->user()];
-            return $songArtist;
         
     }
 
@@ -93,8 +75,8 @@ class SongController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+    // public function destroy($id)
+    // {
+    //     //
+    // }
 }
