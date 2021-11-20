@@ -39,5 +39,12 @@ Route::group(['middleware' => ['api']], function () {
 
 Route::group(['middleware' => ['api']], function () {
     Route::apiResource('artists.follows', App\Http\Controllers\Api\FollowController::class)
-        ->middleware('auth:sanctum');
+        ->middleware('auth:sanctum')
+        ->only(['store', 'destroy']);
+});
+
+Route::group(['middleware' => ['api']], function () {
+    Route::apiResource('artists', App\Http\Controllers\Api\ArtistController::class)
+        ->middleware('auth:sanctum')
+        ->only(['show']);
 });

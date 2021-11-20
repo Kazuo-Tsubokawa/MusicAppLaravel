@@ -22,14 +22,20 @@ Content-Type: application/json
 
 ###
 
-# show
-GET /api/songs/43
-Authorization: Bearer 5|8IJqgu7GDTZ8ZVCfLv1G6OnFG9ZIHUmT8yat3nLp
+# songshow
+GET /api/songs/15
+Authorization: Bearer 
 Host: localhost
 Content-Type: application/json
 
 
 ###
+
+#artistshow
+GET /api/artists/15
+Authorization: Bearer 9|oruKsDrVdEhNmm2ZrrOV7vBBRBLmwhNMVFAAv94s
+Host: localhost
+Content-Type: application/json
 
 
 # # store
