@@ -25,8 +25,18 @@ Route::post('/register', [RegisterController::class, 'register']);
 
 Route::post('/login', [LoginController::class, 'login']);
 
-Route::group(['middleware' => ['api']], function(){
+Route::group(['middleware' => ['api']], function () {
     Route::apiResource('songs', App\Http\Controllers\Api\SongController::class)
-    ->middleware('auth:sanctum');
-    // ->only(['update', ''])
+        ->middleware('auth:sanctum')
+        ->only(['show']);
+});
+
+Route::group(['middleware' => ['api']], function () {
+    Route::apiResource('songs.likes', App\Http\Controllers\Api\LikeController::class)
+        ->middleware('auth:sanctum');
+});
+
+Route::group(['middleware' => ['api']], function () {
+    Route::apiResource('artists.follows', App\Http\Controllers\Api\FollowController::class)
+        ->middleware('auth:sanctum');
 });

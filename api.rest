@@ -25,39 +25,41 @@ Content-Type: application/json
 
 # show
 GET /api/songs/43
+Authorization: Bearer 5|8IJqgu7GDTZ8ZVCfLv1G6OnFG9ZIHUmT8yat3nLp
 Host: localhost
 Content-Type: application/json
+
 
 ###
 
 
-# store
-POST /api/songs
-Host: localhost
-Content-Type: application/json
-Authorization: Bearer 2|PvO22eNPQLgG8oKZKhJYmJ58B7QJFhJiMx5rdCIO
+# # store
+# POST /api/songs
+# Host: localhost
+# Content-Type: application/json
+# Authorization: Bearer 2|PvO22eNPQLgG8oKZKhJYmJ58B7QJFhJiMx5rdCIO
 
-{
-    "category_id": "2",
-    "title": "title",
-    "file_name": "2.mp3",
-    "description": "aaaa",
-    "image": "2.jpeg"
-}
+# {
+#     "category_id": "2",
+#     "title": "title",
+#     "file_name": "2.mp3",
+#     "description": "aaaa",
+#     "image": "2.jpeg"
+# }
 
 
-###
+# ###
 
-# update
-PUT  /api/songs/48
-Host: localhost
-Content-Type: application/json
-Authorization: Bearer 2|PvO22eNPQLgG8oKZKhJYmJ58B7QJFhJiMx5rdCIO
+# # update
+# PUT  /api/songs/48
+# Host: localhost
+# Content-Type: application/json
+# Authorization: Bearer 2|PvO22eNPQLgG8oKZKhJYmJ58B7QJFhJiMx5rdCIO
 
-{
-    "category_id": "2",
-    "title": "titleeeen",
-    "file_name": "2.mp3",
-    "description": "bbbb",
-    "image": "2.jpeg"
-}
+# {
+#     "category_id": "2",
+#     "title": "titleeeen",
+#     "file_name": "2.mp3",
+#     "description": "bbbb",
+#     "image": "2.jpeg"
+# }

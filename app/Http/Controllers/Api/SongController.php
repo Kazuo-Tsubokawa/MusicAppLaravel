@@ -30,18 +30,18 @@ class SongController extends Controller
      */
     public function store(Request $request)
     {
-        $song = new Song();
-        $song->fill($request->all());
-        $artist = Artist::where('user_id', $request->user()->id)->first();
-        $song->artist_id = $artist['id'];
+        // $song = new Song();
+        // $song->fill($request->all());
+        // $artist = Artist::where('user_id', $request->user()->id)->first();
+        // $song->artist_id = $artist['id'];
 
-        $song->file_name = $request->file_name;
-        $song->image = $request->image;
+        // $song->file_name = $request->file_name;
+        // $song->image = $request->image;
 
-        $song->save();
-        // DB::commit();
-        $songArtist = [$song, $artist[0], $request->user()];
-        return $songArtist;
+        // $song->save();
+        // // DB::commit();
+        // $songArtist = [$song, $artist[0], $request->user()];
+        // return $songArtist;
 
     }
 
@@ -51,10 +51,9 @@ class SongController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($songid)
+    public function show($song_id)
     {
-        $song = Song::find($songid);
-
+        $song = Song::find($song_id);
         return $song;
 
     }
@@ -68,17 +67,17 @@ class SongController extends Controller
      */
     public function update(Request $request, $song_id)
     {
-        $song = Song::find($song_id);
-        $artist = Artist::where('user_id', $request->user()->id)->first();
-        if ($song->artist_id != $artist->id || $artist->count() == 0) {
-            return ["message" => "error"];
-        };
-        $song->fill($request->all());
-        $song->image = $request->image;
+        // $song = Song::find($song_id);
+        // $artist = Artist::where('user_id', $request->user()->id)->first();
+        // if ($song->artist_id != $artist->id || $artist->count() == 0) {
+        //     return ["message" => "error"];
+        // };
+        // $song->fill($request->all());
+        // $song->image = $request->image;
 
-        $song->save();
+        // $song->save();
 
-        return ["song" => $song];
+        // return ["song" => $song];
 
     }
 
