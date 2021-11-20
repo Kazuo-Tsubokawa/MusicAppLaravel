@@ -9,7 +9,6 @@ Content-Type: application/json
     "password": "11111111"
 }
 
-
 ###
 # login
 POST /api/login
@@ -66,7 +65,7 @@ Content-Type: application/json
 
 ###
 
-# songlikestore
+# likestore
 POST /api/songs/6/likes
 Host: localhost
 Content-Type: application/json
@@ -77,9 +76,6 @@ Authorization: Bearer 7|R6qvlNBfyNUmCd8e4GkHAIEUAUBxwH8YJOsB9VA8
     "song_id": "16"
 }
 
-
-
-
 ###
 
 # likedestroy
@@ -88,4 +84,23 @@ Host: localhost
 Content-Type: application/json
 Authorization: Bearer 8|usOuMgoNVFoVIDDPeneCNlCc3GLIUP4peNfnQaBE
 
+###
 
+# followstore
+POST /api/artists/1/follows
+Host: localhost
+Content-Type: application/json
+Authorization: Bearer 9|oruKsDrVdEhNmm2ZrrOV7vBBRBLmwhNMVFAAv94s
+
+{
+    "user_id": "7",
+    "artist_id": "7"
+}
+
+###
+
+# followdestroy
+DELETE /api/artists/7/follows/29
+Host: localhost
+Content-Type: application/json
+Authorization: Bearer 9|oruKsDrVdEhNmm2ZrrOV7vBBRBLmwhNMVFAAv94s

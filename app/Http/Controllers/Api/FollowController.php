@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Artist;
+use App\Models\Follow;
 use Illuminate\Http\Request;
 
 class FollowController extends Controller
@@ -25,7 +27,14 @@ class FollowController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $follow = new Follow();
+        
+        $follow->user_id = $request->user_id;
+        $follow->artist_id = $request->artist_id;
+
+        $follow->save();
+
+        return $follow;
     }
 
     /**
@@ -57,8 +66,11 @@ class FollowController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Artist $artist, Follow $follow)
     {
-        //
+        $artist->delete();
+        $follow->delete();
+
+        return $follow;
     }
 }
