@@ -33,7 +33,8 @@ Route::group(['middleware' => ['api']], function () {
 
 Route::group(['middleware' => ['api']], function () {
     Route::apiResource('songs.likes', App\Http\Controllers\Api\LikeController::class)
-        ->middleware('auth:sanctum');
+        ->middleware('auth:sanctum')
+        ->only(['store', 'destroy']);
 });
 
 Route::group(['middleware' => ['api']], function () {

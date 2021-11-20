@@ -3,7 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Artist;
+use App\Models\Like;
+use App\Models\Song;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use PhpParser\Node\Expr\New_;
 
 class LikeController extends Controller
 {
@@ -25,7 +31,14 @@ class LikeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $like = new Like();
+
+        $like->user_id = $request->user_id;
+        $like->song_id = $request->song_id;
+
+        $like->save();
+
+        return $like;
     }
 
     /**
@@ -57,8 +70,11 @@ class LikeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Song $song, Like $like)
     {
-        //
+        $song->delete();
+        $like->delete();
+
+        return $like;
     }
 }

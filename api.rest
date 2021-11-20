@@ -63,3 +63,29 @@ Content-Type: application/json
 #     "description": "bbbb",
 #     "image": "2.jpeg"
 # }
+
+###
+
+# songlikestore
+POST /api/songs/6/likes
+Host: localhost
+Content-Type: application/json
+Authorization: Bearer 7|R6qvlNBfyNUmCd8e4GkHAIEUAUBxwH8YJOsB9VA8
+
+{
+    "user_id": "15",
+    "song_id": "16"
+}
+
+
+
+
+###
+
+# likedestroy
+DELETE /api/songs/11/likes/91
+Host: localhost
+Content-Type: application/json
+Authorization: Bearer 8|usOuMgoNVFoVIDDPeneCNlCc3GLIUP4peNfnQaBE
+
+
