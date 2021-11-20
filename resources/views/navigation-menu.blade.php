@@ -11,7 +11,7 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex pt-1 pl-80">
-                    <form class="form-inline my-2 my-lg-0">
+                    <form action="{{ route('songs.random') }}" method="GET" class="form-inline my-2 my-lg-0 ">
                         <input class="form-control mr-sm-2" type="search" name="category" placeholder="ジャンルから探す">
                         <input class="form-control mr-sm-2 ml-2" type="search" name="prefecture" placeholder="活動地域から探す">
                         <button class="btn btn-outline-success my-2 my-sm-0 ml-2 text-gray-800" type="submit">検索</button>

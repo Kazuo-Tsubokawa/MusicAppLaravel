@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Artist;
 use App\Models\Category;
 use App\Models\Like;
+use App\Models\Prefecture;
 use App\Models\Song;
 use App\Models\User;
 use Exception;
@@ -253,20 +254,34 @@ class SongController extends Controller
 
     // }
 
-    // public function filter(Request $request) {
-    //     $category = $request->category;
-    //     $prefecture = $request->prefecture;
-    //     $query = Song::query();
-    //     if(!empty($category)) {
-    //         $query->where('category_id', $category);
-    //     }
+    public function random(Request $request) {
+        // dd($request);
+        $category = $request->category;
+        $prefecture = $request->prefecture;
+        // $prefecturequery = Artist::query();
         
-    //     if(!empty($prefecture)) {
-    //         $query->join('songs', 'artists.id' ,'=', 'songs.artist_id')
-    //         ->where('prefecture_id', $prefecture)
-    //         ->get();
-    //     }
-    //     dd($query->get());
+        $query = Song::query();
+        if(!empty($category)) {
+            $query->where('category_id', $category);
+        }
 
-    // }
+        if(!empty($prefecture)) {
+            // $prefecture_1 = Prefecture::find($prefecture);
+            // $query = $prefecture_1->with('artists.songs');
+            // $query = Prefecture::find($prefecture)
+            // ->with('artists.songs');
+            // dd($query);
+            $query->whereHas('artist', function ($query) use($prefecture) {
+                return $query->where('prefecture_id', $prefecture);
+            });
+            // ->get();
+
+
+            // $query->where('prefecture_id', $prefecture);
+        }
+        $song = $query->inRandomOrder()->first();
+
+        return view('songs.random', compact('song'));
+
+    }
 }

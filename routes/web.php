@@ -33,7 +33,10 @@ Route::get('/', function () {
 Route::resource('songs', SongController::class)
     ->middleware(['auth'])
     ->only(['create', 'store', 'edit', 'update', 'destroy']);
-
+    
+Route::get('songs/random', [SongController::class, 'random'])
+        ->name('songs.random');
+        
 Route::resource('songs', SongController::class)
     ->only(['index', 'show']);
 
@@ -49,6 +52,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::get('songs/category/{cateId}', [SongController::class, 'searchCategory']);
-Route::get('songs/prefecture/{preId}', [SongController::class, 'searchPrefecture']);
 
+// Route::get('songs/category/{cateId}', [SongController::class, 'searchCategory']);
+// Route::get('songs/prefecture/{preId}', [SongController::class, 'searchPrefecture']);

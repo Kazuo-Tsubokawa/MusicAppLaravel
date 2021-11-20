@@ -44,7 +44,6 @@
                 活動地域 : {{ $artist->prefecture->name }}</label>
         </div>
 
-
         <div class="mb-4 text-1xl font-bold">
             <label class="block text-white mb-2">
                 紹介 : {{ $artist->introduction }}</label>

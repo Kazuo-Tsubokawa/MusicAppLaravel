@@ -1,21 +1,20 @@
 <x-app-layout>
-    {{-- @extends('layouts.main') --}}
+    @extends('layouts.main')
     @section('title', 'ランダム再生')
     {{-- @include('partial.flash') --}}
     {{-- @include('partial.errors') --}}
+    <h2 class="text-center text-3xl text-blue-400 font-bold pt-3 tracking-widest mb-4">インディーズBOX</h2>
     <div class="container lg:w-1/2 md:w-4/5 w-11/12 mx-auto pt-5 px-8 bg-gray-400 shadow-md rounded-md">
-        <h2 class="text-center text-3xl text-blue-400 font-bold pt-3 tracking-widest mb-4">インディーズBOX</h2>
-        <div class="flex justify-center">
+        <div>
             {{-- {{ dd(Request::url()) }} --}}
-            {{-- {{ dd(Storage::url('song_image/' . $song->image)) }} --}}
-                <img src="{{ Storage::url('song_image/' . $song->image) }}" alt="image" width="300" height="300" 
-                    style="display: block; margin: auto;">
+            <img src="{{ Storage::url('song_image/' . $song->image) }}" alt="image" width="300" height="300"
+                style="display: block; margin: auto;">
         </div>
         <div class="text-center">
             <h3 class="text-2xl mt-4 text-white font-bold mb-2 ml-60 pl-6" style="float: left">
                 {{ $song->title }}
             </h3>
-            @if ($like)
+            @if (!empty($like))
                 <form action="{{ route('songs.likes.destroy', [$song, $like]) }}" method="POST">
                     @csrf
                     @method('DELETE')
@@ -66,5 +65,6 @@
                 </form>
             @endcan
         </div>
+
     </div>
 </x-app-layout>
