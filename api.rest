@@ -23,8 +23,8 @@ Content-Type: application/json
 ###
 
 # songshow
-GET /api/songs/15
-Authorization: Bearer 
+GET /api/songs/1
+Authorization: Bearer 1|wyVMaLIHNXFeEV0I3bMdnBGuoJS0JtfSzkHPjgls
 Host: localhost
 Content-Type: application/json
 
@@ -32,8 +32,8 @@ Content-Type: application/json
 ###
 
 #artistshow
-GET /api/artists/15
-Authorization: Bearer 9|oruKsDrVdEhNmm2ZrrOV7vBBRBLmwhNMVFAAv94s
+GET /api/artists/1
+Authorization: Bearer 1|wyVMaLIHNXFeEV0I3bMdnBGuoJS0JtfSzkHPjgls
 Host: localhost
 Content-Type: application/json
 

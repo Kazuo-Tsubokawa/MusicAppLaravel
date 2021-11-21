@@ -54,6 +54,7 @@ class SongController extends Controller
     public function show($song_id)
     {
         $song = Song::find($song_id);
+        $song->load('artist');
         return $song;
 
     }
