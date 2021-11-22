@@ -9,7 +9,6 @@
                 style="display: block; margin: auto;">
         </div>
 
-
         <div class="text-center">
             @if (Auth::user()->artist->id !== $artist->id)
                 @if ($follow)
@@ -44,12 +43,12 @@
                 活動地域 : {{ $artist->prefecture->name }}</label>
         </div>
 
-        <div class="mb-4 text-1xl font-bold">
+        <div class="mb-5 text-1xl font-bold">
             <label class="block text-white mb-2">
                 紹介 : {{ $artist->introduction }}</label>
         </div>
 
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-3 rounded text-center">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-3 rounded text-center mb-6 mt-2">
             <a href="{{ route('songs.index') }}">戻る</a>
         </button>
     </div>

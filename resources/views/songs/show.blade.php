@@ -1,16 +1,16 @@
 <x-app-layout>
-    {{-- @extends('layouts.main') --}}
     @section('title', 'ランダム再生')
     {{-- @include('partial.flash') --}}
     {{-- @include('partial.errors') --}}
-    <div class="container lg:w-1/2 md:w-4/5 w-11/12 mx-auto pt-5 px-8 bg-gray-400 shadow-md rounded-md">
-        <h2 class="text-center text-3xl text-blue-400 font-bold pt-3 tracking-widest mb-4">インディーズBOX</h2>
+    <div class="container lg:w-1/2 md:w-4/5 w-11/12 mx-auto mt-5 px-8 bg-gray-400 shadow-md rounded-md">
+        <h2 class="text-center text-3xl text-white font-bold pt-6 tracking-widest mb-4">インディーズBOX</h2>
         <div class="flex justify-center">
             {{-- {{ dd(Request::url()) }} --}}
             {{-- {{ dd(Storage::url('song_image/' . $song->image)) }} --}}
-                <img src="{{ Storage::url('song_image/' . $song->image) }}" alt="image" width="300" height="300" 
-                    style="display: block; margin: auto;">
+            <img src="{{ Storage::url('song_image/' . $song->image) }}" alt="image" width="300" height="300"
+                style="display: block; margin: auto;">
         </div>
+
         <div class="text-center">
             <h3 class="text-2xl mt-4 text-white font-bold mb-2 ml-60 pl-6" style="float: left">
                 {{ $song->title }}
@@ -46,22 +46,21 @@
         <div class="text-center text-1xl mt-4 text-white font-bold mb-2">{{ $song->description }}</div>
 
 
-
         <div class="text-center">
-            <button class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 mr-3 rounded text-center">
-                <a href="{{ route('songs.create') }}" class="">投稿</a>
+            <button class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 mr-3 mb-4 rounded text-center">
+                <a href="{{ route('songs.create') }}">投稿</a>
             </button>
             @can('update', $song)
-                <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 mr-3 rounded text-center">
+                <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 mr-3 mb-4 rounded text-center">
                     <a href="{{ route('songs.edit', $song) }}">編集</a>
                 </button>
             @endcan
             @can('delete', $song)
-                <form action="{{ route('songs.destroy', $song) }}" method="post" id="form" class="display: inline-block">
+                <form action="{{ route('songs.destroy', $song) }}" method="post" class="display: inline-block">
                     @csrf
                     @method('delete')
-                    <input type="submit" value="削除" form="form"
-                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded text-center"
+                    <input type="submit" value="削除"
+                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mb-4 rounded text-center"
                         onclick="if (!confirm('本当に削除してよろしいですか？')) {return false};">
                 </form>
             @endcan

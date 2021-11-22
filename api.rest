@@ -72,14 +72,14 @@ Content-Type: application/json
 ###
 
 # likestore
-POST /api/songs/6/likes
+POST /api/songs/1/likes
 Host: localhost
 Content-Type: application/json
-Authorization: Bearer 7|R6qvlNBfyNUmCd8e4GkHAIEUAUBxwH8YJOsB9VA8
+Authorization: Bearer 2|emhEeFh2oPaKocFcDUyxPuMA5J5O8py5CCLiJDD7
 
 {
-    "user_id": "15",
-    "song_id": "16"
+    "user_id": "1",
+    "song_id": "1"
 }
 
 ###

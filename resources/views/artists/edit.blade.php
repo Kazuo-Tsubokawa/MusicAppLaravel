@@ -64,7 +64,7 @@
     <div class="container lg:w-1/2 md:w-4/5 w-11/12 mx-auto pt-2 pb-2 px-8 bg-gray-400 shadow-md rounded-md">
         <form action="{{ route('members.store') }}" method="post" id="form2">
             @csrf
-            <div class="mb-1">
+            <div class="mb-2 pt-2">
                 <label class="text-white mb-2 mr-2" for="name">メンバー追加</label>
                 <input type="text" name="name" class="form-control">
                 <input type="submit" value="追加" form="form2"

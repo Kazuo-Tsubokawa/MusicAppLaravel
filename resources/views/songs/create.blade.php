@@ -31,15 +31,15 @@
                 <label class="block text-white mb-2" for="category">ジャンル</label>
                 <select name="category_id">
                     @foreach ($categories as $category)
-                        <option value="{{ $category->id }}" @if (old('category') == $category->id) selected  @endif>{{ $category->name }}
-                        </option>
+                        <option value="{{ $category->id }}" @if (old('category') == $category->id) selected  @endif>{{ $category->name }}</option>
                     @endforeach
                 </select>
             </div>
 
             <div class="mb-4">
                 <label class="block text-white mb-2" for="description">説明</label>
-                <textarea class="w-full" name="description" rows="5" required placeholder="曲の説明を入力してください"></textarea>
+                <textarea class="w-full" name="description" rows="5" required
+                    placeholder="曲の説明を入力してください"></textarea>
             </div>
 
             <input type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
