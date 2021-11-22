@@ -20,7 +20,7 @@ class ArtistFactory extends Factory
             'name' => $this->faker->word() . $this->faker->name(),
             'prefecture_id' => Prefecture::inRandomOrder()->first(),
             'introduction' => $this->faker->paragraph(),
-            'image' => null
+            'image' => "2mf1Bnar2WUEQWX7zefjicbyzMTaz7VexCYLilUt.jpg"
         ];
     }
 }

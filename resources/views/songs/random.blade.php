@@ -3,7 +3,6 @@
     @section('title', 'ランダム再生')
     {{-- @include('partial.flash') --}}
     {{-- @include('partial.errors') --}}
-    <h2 class="text-center text-3xl text-blue-400 font-bold pt-3 tracking-widest mb-4">インディーズBOX</h2>
     <div class="container lg:w-1/2 md:w-4/5 w-11/12 mx-auto pt-5 px-8 bg-gray-400 shadow-md rounded-md">
         <div>
             {{-- {{ dd(Request::url()) }} --}}

@@ -2,8 +2,34 @@
     @section('title', 'ランダム再生')
     {{-- @include('partial.flash') --}}
     {{-- @include('partial.errors') --}}
-    <div class="container lg:w-1/2 md:w-4/5 w-11/12 mx-auto mt-5 px-8 bg-gray-400 shadow-md rounded-md">
-        <h2 class="text-center text-3xl text-white font-bold pt-6 tracking-widest mb-4">インディーズBOX</h2>
+    <div class="container lg:w-1/2 md:w-4/5 w-11/12 mx-auto pt-1 px-8 bg-gray-400 shadow-md rounded-md">
+        <div class="text-center">
+            <form action="{{ route('songs.random') }}" method="GET" class="form-inline my-2 my-lg-0 ">
+                <select name="category_id">
+                    <option selected>ジャンルから探す</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}" @if (old('category') == $category->id) selected  @endif>{{ $category->name }}</option>
+                    @endforeach
+                </select>
+
+                <select name="prefecture_id">
+                    <option selected>活動地域から探す</option>
+                    @foreach ($prefectures as $prefecture)
+                        <option value="{{ $prefecture->id }}" @if (old('prefecture') == $prefecture->id) selected  @endif>{{ $prefecture->name }}</option>
+                    @endforeach
+                </select>
+
+                <button class="btn btn-outline-success my-2 my-sm-0 ml-2 text-gray-800 mt-2" type="submit">検索</button>
+            </form>
+        </div>
+
+
+
+
+
+
+
+
         <div class="flex justify-center">
             {{-- {{ dd(Request::url()) }} --}}
             {{-- {{ dd(Storage::url('song_image/' . $song->image)) }} --}}
@@ -47,11 +73,13 @@
 
 
         <div class="text-center">
-            <button class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 mr-3 mb-4 rounded text-center">
+            <button
+                class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 mr-3 mb-4 rounded text-center">
                 <a href="{{ route('songs.create') }}">投稿</a>
             </button>
             @can('update', $song)
-                <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 mr-3 mb-4 rounded text-center">
+                <button
+                    class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 mr-3 mb-4 rounded text-center">
                     <a href="{{ route('songs.edit', $song) }}">編集</a>
                 </button>
             @endcan

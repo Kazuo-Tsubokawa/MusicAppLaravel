@@ -91,6 +91,9 @@ class SongController extends Controller
     public function show(Song $song)
     {
 
+        $categories = Category::all();
+        $prefectures = Prefecture::all();
+
         $like = null;
         foreach ($song->likes as $songLike) {
             foreach (Auth::user()->likes as $userLike) {
@@ -101,7 +104,7 @@ class SongController extends Controller
             }
         }
 
-        return view('songs.show', compact('song', 'like'));
+        return view('songs.show', compact('song', 'like', 'categories', 'prefectures'));
     }
 
     /**

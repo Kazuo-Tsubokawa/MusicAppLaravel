@@ -2,7 +2,7 @@
     @section('title', '編集画面')
     {{-- @include('partial.flash') --}}
     {{-- @include('partial.errors') --}}
-    <div class="container lg:w-1/2 md:w-4/5 w-11/12 mx-auto mt-5 px-8 bg-gray-400 shadow-md rounded-md">
+    <div class="container lg:w-1/2 md:w-4/5 w-11/12 mx-auto px-8 bg-gray-400 shadow-md rounded-md">
         <h2 class="text-center text-3xl text-white font-bold pt-6 tracking-widest mb-4">曲の情報編集</h2>
         <form action="{{ route('songs.update', $song) }}" method="post" enctype="multipart/form-data"
             class="rounded pt-3 pb-8 mb-4">
