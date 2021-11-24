@@ -3,7 +3,7 @@
     {{-- @include('partial.flash') --}}
     {{-- @include('partial.errors') --}}
     <div class="container lg:w-1/2 md:w-4/5 w-11/12 mx-auto pt-1 px-8 bg-gray-400 shadow-md rounded-md">
-        <div class="text-center">
+        <div class="text-center mt-4 mb-5">
             <form action="{{ route('songs.random') }}" method="GET" class="form-inline my-2 my-lg-0">
                 <select name="category_id">
                     <option selected>ジャンルから探す</option>
@@ -19,7 +19,7 @@
                     @endforeach
                 </select>
 
-                <button class="btn btn-outline-success my-2 my-sm-0 ml-2 text-gray-800 mt-2" type="submit">検索</button>
+                <button class="btn btn-outline-success my-2 my-sm-0 ml-2 text-gray-800" type="submit">検索</button>
             </form>
         </div>
 

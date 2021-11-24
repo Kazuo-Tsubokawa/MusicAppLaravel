@@ -38,6 +38,7 @@ class ArtistController extends Controller
     public function show($artist_id)
     {
         $artist = Artist::find($artist_id);
+        $artist->load('prefecture');
 
         return $this->jsonResponse($artist);
         return $artist;
