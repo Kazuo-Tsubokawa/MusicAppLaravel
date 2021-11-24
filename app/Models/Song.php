@@ -19,6 +19,10 @@ class Song extends Model
         'description'
     ];
 
+    protected $appends = [
+        'songs_count'
+    ];
+
     // public function scopeSearch(Builder $query, $params)
     // {
     //     if (!empty($params['prefecture'])) {
@@ -48,6 +52,11 @@ class Song extends Model
     public function likes()
     {
         return $this->hasMany(\App\Models\Like::class);
+    }
+
+    public function getSongsCountAttribute()
+    {
+        return Song::count();
     }
 
 }

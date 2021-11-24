@@ -55,6 +55,7 @@ class SongController extends Controller
     {
         $song = Song::find($song_id);
         $song->load('artist');
+        $song->artist->load('prefecture');
         return $song;
 
     }
