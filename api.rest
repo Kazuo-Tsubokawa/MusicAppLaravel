@@ -24,7 +24,7 @@ Content-Type: application/json
 
 # songshow
 GET /api/songs/1
-Authorization: Bearer 1|xKQKmP3hP1tDSiKzUWVDJy4SUwej1tlMwZTLlgvk
+Authorization: Bearer 2|9QPaH5pcTp25YIluX6mc9ZyUtetE4ga0KAl0T9VB
 Host: localhost
 Content-Type: application/json
 

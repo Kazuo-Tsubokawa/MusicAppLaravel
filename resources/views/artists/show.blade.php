@@ -6,7 +6,7 @@
         <h2 class="text-center text-3xl text-white font-bold pt-6 tracking-widest mb-4">プロフィール</h2>
         <div>
             <img src="{{ Storage::url('artist_image/' . $artist->image) }}" alt="image" width="300" height="300"
-                style="display: block; margin: auto;">
+                style="display: block; margin: auto; object-fit">
         </div>
 
         <div class="text-center">

@@ -32,7 +32,7 @@
                     <textarea class="w-full" name="introduction" rows="5" required
                         placeholder="自己紹介を入力してください"></textarea>
                 </div>
-                <input type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <input type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-5">
             </div>
         </form>
     </div>

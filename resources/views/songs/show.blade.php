@@ -4,7 +4,7 @@
     {{-- @include('partial.errors') --}}
     <div class="container lg:w-1/2 md:w-4/5 w-11/12 mx-auto pt-1 px-8 bg-gray-400 shadow-md rounded-md">
         <div class="text-center">
-            <form action="{{ route('songs.random') }}" method="GET" class="form-inline my-2 my-lg-0 ">
+            <form action="{{ route('songs.random') }}" method="GET" class="form-inline my-2 my-lg-0">
                 <select name="category_id">
                     <option selected>ジャンルから探す</option>
                     @foreach ($categories as $category)
@@ -23,18 +23,11 @@
             </form>
         </div>
 
-
-
-
-
-
-
-
         <div class="flex justify-center">
             {{-- {{ dd(Request::url()) }} --}}
             {{-- {{ dd(Storage::url('song_image/' . $song->image)) }} --}}
             <img src="{{ Storage::url('song_image/' . $song->image) }}" alt="image" width="300" height="300"
-                style="display: block; margin: auto;">
+                style="display: block; margin: auto; object-fit">
         </div>
 
         <div class="text-center">
@@ -45,12 +38,12 @@
                 <form action="{{ route('songs.likes.destroy', [$song, $like]) }}" method="POST">
                     @csrf
                     @method('DELETE')
-                    <input type="submit" value="♥♥♥" class="mt-5 bg-red-400">
+                    <input type="submit" value="いいね削除👎" class="mt-5 bg-red-200">
                 </form>
             @else
                 <form action="{{ route('songs.likes.store', $song) }}" method="POST">
                     @csrf
-                    <input type="submit" value="♡♡♡" class="mt-5 bg-red-400">
+                    <input type="submit" value="いいね👍" class="mt-5 bg-green-200">
                 </form>
             @endif
         </div>
@@ -58,7 +51,6 @@
         <div class="text-center text-1xl mt-4 text-white font-bold mb-2">
             <a href="{{ route('artists.show', $song->artist) }}">{{ $song->artist->name }}</a>
         </div>
-
 
         <audio controls autoplay src="{{ Storage::url('song_file/' . $song->file_name) }}" class="w-250 ml-20"
             style="float: left"></audio>
@@ -68,7 +60,6 @@
         </button>
 
         <p class="text-center text-1xl mt-5 bg-red-100 text-black font-bold mb-2">曲の説明</p>
-
         <div class="text-center text-1xl mt-4 text-white font-bold mb-2">{{ $song->description }}</div>
 
 

@@ -205,7 +205,7 @@ class SongController extends Controller
 
     //     // $songs->appends(compact('category'));
     //     // return view('songs.show', compact('songs'));
-        
+
     //     $songIdArray = [];
     //     $songs = Song::where('category_id', $categoryId)->get();
     //     foreach ($songs as $song) {
@@ -233,7 +233,7 @@ class SongController extends Controller
     //     $songs =[];
     //     $songIdArray = [];
     //     $artists = Artist::where('prefecture_id', $prefectureId)->get();
-        
+
     //     foreach ($artists as $artist) {
     //         foreach ($artist->songs as $song) {
     //             array_push($songs, $song->id);
@@ -257,24 +257,25 @@ class SongController extends Controller
 
     // }
 
-    public function random(Request $request) {
+    public function random(Request $request)
+    {
         // dd($request);
-        $category = $request->category;
-        $prefecture = $request->prefecture;
+        $category = $request->category_id;
+        $prefecture = $request->prefecture_id;
         // $prefecturequery = Artist::query();
-        
+
         $query = Song::query();
-        if(!empty($category)) {
+        if (!empty($category)) {
             $query->where('category_id', $category);
         }
 
-        if(!empty($prefecture)) {
+        if (!empty($prefecture)) {
             // $prefecture_1 = Prefecture::find($prefecture);
             // $query = $prefecture_1->with('artists.songs');
             // $query = Prefecture::find($prefecture)
             // ->with('artists.songs');
             // dd($query);
-            $query->whereHas('artist', function ($query) use($prefecture) {
+            $query->whereHas('artist', function ($query) use ($prefecture) {
                 return $query->where('prefecture_id', $prefecture);
             });
             // ->get();
@@ -284,7 +285,6 @@ class SongController extends Controller
         }
         $song = $query->inRandomOrder()->first();
 
-        return view('songs.random', compact('song'));
-
+        return view('songs.random', compact('song', 'category', 'prefecture'));
     }
 }
