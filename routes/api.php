@@ -27,7 +27,7 @@ Route::post('/login', [LoginController::class, 'login']);
 
 Route::group(['middleware' => ['api']], function () {
     Route::apiResource('songs', App\Http\Controllers\Api\SongController::class)
-        // ->middleware('auth:sanctum')
+        ->middleware('auth:sanctum')
         ->only(['show']);
 });
 
@@ -45,6 +45,6 @@ Route::group(['middleware' => ['api']], function () {
 
 Route::group(['middleware' => ['api']], function () {
     Route::apiResource('artists', App\Http\Controllers\Api\ArtistController::class)
-        // ->middleware('auth:sanctum')
+        ->middleware('auth:sanctum')
         ->only(['show']);
 });
