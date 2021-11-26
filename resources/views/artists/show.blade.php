@@ -10,7 +10,7 @@
         </div>
 
         <div class="text-center">
-            @if (Auth::user()->artist->id !== $artist->id)
+            @if ((!empty(Auth::user()->artist) && Auth::user()->artist->id != $artist->id) || empty(Auth::user()->artist))
                 @if ($follow)
                     <form action="{{ route('artists.follows.destroy', [$artist, $follow]) }}" method="POST">
                         @csrf
