@@ -262,7 +262,6 @@ class SongController extends Controller
         // dd($request);
         $category = $request->category_id;
         $prefecture = $request->prefecture_id;
-        // $prefecturequery = Artist::query();
 
         $query = Song::query();
         if (!empty($category)) {
@@ -270,18 +269,9 @@ class SongController extends Controller
         }
 
         if (!empty($prefecture)) {
-            // $prefecture_1 = Prefecture::find($prefecture);
-            // $query = $prefecture_1->with('artists.songs');
-            // $query = Prefecture::find($prefecture)
-            // ->with('artists.songs');
-            // dd($query);
             $query->whereHas('artist', function ($query) use ($prefecture) {
                 return $query->where('prefecture_id', $prefecture);
             });
-            // ->get();
-
-
-            // $query->where('prefecture_id', $prefecture);
         }
         $song = $query->inRandomOrder()->first();
 
