@@ -260,15 +260,21 @@ class SongController extends Controller
     public function random(Request $request)
     {
         // dd($request);
-        $category = $request->category_id;
-        $prefecture = $request->prefecture_id;
+
+        // $category = $request->category_id;
+        // $prefecture = $request->prefecture_id;
+
+        $category = $request->input('category_id');
+        $prefecture = $request->input('prefecture_id');
 
         $query = Song::query();
-        if (!empty($category)) {
+
+
+        if (!empty($category) && $request->has('category_id') && $category != ('ジャンルから探す')) {
             $query->where('category_id', $category);
         }
 
-        if (!empty($prefecture)) {
+        if (!empty($prefecture) && $request->has('prefecture_id') && $prefecture != ('活動地域から探す')) {
             $query->whereHas('artist', function ($query) use ($prefecture) {
                 return $query->where('prefecture_id', $prefecture);
             });

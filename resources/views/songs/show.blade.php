@@ -8,14 +8,14 @@
                 <select name="category_id">
                     <option selected>ジャンルから探す</option>
                     @foreach ($categories as $category)
-                        <option value="{{ $category->id }}" @if (old('category') == $category->id) selected  @endif>{{ $category->name }}</option>
+                        <option value="{{ $category->id }}">{{ $category->name}}</option>
                     @endforeach
                 </select>
 
                 <select name="prefecture_id">
                     <option selected>活動地域から探す</option>
                     @foreach ($prefectures as $prefecture)
-                        <option value="{{ $prefecture->id }}" @if (old('prefecture') == $prefecture->id) selected  @endif>{{ $prefecture->name }}</option>
+                        <option value="{{ $prefecture->id }}">{{ $prefecture->name }}</option>
                     @endforeach
                 </select>
 
