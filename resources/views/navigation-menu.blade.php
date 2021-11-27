@@ -115,6 +115,12 @@
                                 </x-jet-responsive-nav-link>
                             @endif
 
+                            @if (!empty(Auth::user()->artist))
+                                <x-jet-responsive-nav-link href="{{ route('songs.create') }}"
+                                    :active="request()->routeIs('songs.create')">
+                                    {{ __('曲を投稿') }}
+                                </x-jet-responsive-nav-link>
+                            @endif
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                                 <x-jet-dropdown-link href="{{ route('api-tokens.index') }}">

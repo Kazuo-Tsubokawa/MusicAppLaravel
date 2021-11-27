@@ -60,16 +60,10 @@
         </button>
 
         <p class="text-center text-1xl mt-5 bg-red-100 text-black font-bold mb-2">曲の説明</p>
-        <div class="text-center text-1xl mt-4 text-white font-bold mb-2">{{ $song->description }}</div>
+        <div class="text-center text-1xl pb-10 text-white font-bold ">{{ $song->description }}</div>
 
 
         <div class="text-center">
-            @if (!empty(Auth::user()->artist))
-            <button
-                class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 mr-3 mb-4 rounded text-center">
-                <a href="{{ route('songs.create') }}">投稿</a>
-            </button>
-            @endif
             @can('update', $song)
                 <button
                     class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 mr-3 mb-4 rounded text-center">
