@@ -44,10 +44,6 @@
         <div class="text-center text-1xl mt-4 text-white font-bold mb-2">{{ $song->description }}</div>
 
         <div class="text-center">
-            <button
-                class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 mr-3 mb-4 rounded text-center">
-                <a href="{{ route('songs.create') }}" class="">投稿</a>
-            </button>
             @can('update', $song)
                 <button
                     class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 mr-3 mb-4 rounded text-center">
