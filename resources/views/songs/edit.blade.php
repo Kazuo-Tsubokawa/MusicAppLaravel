@@ -38,7 +38,7 @@
             </div>
 
             <input type="submit" value="更新"
-                class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 mr-3 rounded text-center">
+                class="bg-yellow-300 hover:bg-yellow-500 text-white font-bold py-2 px-4 mr-3 rounded text-center">
             <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mr-3 rounded text-center">
                 <a href="{{ route('songs.show', $song) }}">戻る</a>
             </button>
