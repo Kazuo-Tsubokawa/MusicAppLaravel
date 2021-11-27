@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
                     <a href="{{ route('songs.index') }}">
-                        <x-jet-application-mark class="block h-9 w-auto" />
+                        <img src="https://user-images.githubusercontent.com/88309253/143668277-a93f84aa-5a16-4bdf-8f6d-d46c60a8aadb.png" class="block h-9 w-auto">
                     </a>
                 </div>
             </div>
@@ -102,10 +102,6 @@
                             <div class="block px-4 py-2 text-xs text-gray-400">
                                 {{ __('Manage Account') }}
                             </div>
-
-                            <x-jet-dropdown-link href="{{ route('profile.show') }}">
-                                {{ __('Profile') }}
-                            </x-jet-dropdown-link>
 
                             @if ($artist = Auth::user()->artist)
                                 <x-jet-responsive-nav-link href="{{ route('artists.edit', $artist) }}"
