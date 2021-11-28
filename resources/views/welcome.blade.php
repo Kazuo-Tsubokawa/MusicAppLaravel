@@ -25,7 +25,8 @@
         <div class="w-full md:w-1/2 flex flex-col">
 
             <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
-                <p class="text-center text-3xl">NO MUSIC,NO LIFE.</p>
+                <p class="text-center text-5xl">NO MUSIC,NO LIFE.</p>
+                <p class="text-center text-2xl">~We're holding hands in the sky~</p>
                     <a href="{{ route('login') }}" class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8 flex justify-center">Login</a>
                 <div class="text-center pt-12 pb-12">
                     <p>Don't have an account? <a href="register" class="underline font-semibold">Register here.</a></p>
